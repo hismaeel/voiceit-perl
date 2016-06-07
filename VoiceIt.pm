@@ -166,7 +166,7 @@ sub getEnrollments {
 
 sub authentication {
     shift;
-    my ($mail, $passwd, $pathToAuthenticationWav,$accuracy,$accuracyPasses, $accuracyPassIncrement,$confidence,$contentLanguage) = @_;
+    my ($mail, $passwd, $pathToAuthenticationWav,$confidence,$contentLanguage) = @_;
     my $data = get_filedata($pathToAuthenticationWav);
     my $url = 'https://siv.voiceprintportal.com/sivservice/api/authentications';
     my $ua = LWP::UserAgent->new(ssl_opts=>{ verify_hostname => 0 });
@@ -176,9 +176,6 @@ sub authentication {
     $request->header('VsitEmail' => $mail);
     $request->header('VsitPassword' => sha256_hex($passwd));
     $request->header('VsitDeveloperId' => $self->{devID});
-    $request->header('VsitAccuracy' => $accuracy);
-    $request->header('VsitAccuracyPasses' => $accuracyPasses);
-    $request->header('VsitAccuracyPassIncrement' => $accuracyPassIncrement);
     $request->header('VsitConfidence' => $confidence);
     $request->header('ContentLanguage' => $contentLanguage // "");
     $request->header('PlatformID' => $self->{platformId});
@@ -189,7 +186,7 @@ sub authentication {
 
 sub authenticationByWavURL {
     shift;
-    my ($mail, $passwd,$urlToAuthenticationWav,$accuracy,$accuracyPasses, $accuracyPassIncrement,$confidence,$contentLanguage) = @_;
+    my ($mail, $passwd,$urlToAuthenticationWav,$confidence,$contentLanguage) = @_;
     my $ua = LWP::UserAgent->new(ssl_opts=>{ verify_hostname => 0 });
     my $url = 'https://siv.voiceprintportal.com/sivservice/api/enrollments/bywavurl';
     my $request = HTTP::Request->new(POST=>$url);
@@ -198,9 +195,6 @@ sub authenticationByWavURL {
     $request->header('VsitEmail' => $mail);
     $request->header('VsitPassword' => sha256_hex($passwd));
     $request->header('VsitDeveloperId' => $self->{devID});
-    $request->header('VsitAccuracy' => $accuracy);
-    $request->header('VsitAccuracyPasses' => $accuracyPasses);
-    $request->header('VsitAccuracyPassIncrement' => $accuracyPassIncrement);
     $request->header('VsitConfidence' => $confidence);
     $request->header('ContentLanguage' => $contentLanguage // "");
     $request->header('PlatformID' => $self->{platformId});
