@@ -1,10 +1,10 @@
-#VoiceIt Perl wrapper
+# VoiceIt Perl wrapper
 A Wrapper for using the VoiceIt Rest API.
 
-##Download
+## Download
 You can download the repository and add its contents to your root project folder by cloning or clicking or here [VoiceIt Perl Library](https://github.com/voiceittech/voiceit-perl/archive/master.zip)
 
-##Usage
+## Usage
 Then initialize a VoiceIt Object like this with your own developer id
 ```perl
 require VoiceIt;
